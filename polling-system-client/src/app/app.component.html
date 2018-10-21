@@ -1,0 +1,67 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container" style="text-align:center">
+
+  <div class="bg-chart-header">
+  <h1>
+    {{polls[0].title}}
+  </h1>
+  <hr>
+  <div class="row">
+  <div class="d-none d-sm-block col-xl-12 text-right">PUBLISHED : {{polls[0].publishedDate|date:'EEEE, d MMMM, y, h:mm a'}}</div>
+  </div>
+
+</div>
+<div class="bg-chart-body">
+  <div class="row ">
+    
+  <canvas class="col-12 col-xl-8 offset-xl-2"
+  baseChart
+  [chartType]="'doughnut'"
+  [data]="chartData"
+  [labels]="labels"
+  [options]="chartOptions"
+  [legend]="true"
+  [colors]="colors"
+  (chartClick)="onChartClick($event,0)">
+  </canvas>
+</div>
+
+<div class="row">
+    <div class="col-12 col-xl-3">
+    Total number of votes recorded:
+  </div>
+</div>
+<br/>
+
+
+</div>
+
+  <div class="row">
+  <div class="col-12 col-xl-6" *ngFor="let poll of polls">
+      <div class="row">
+      <canvas class="col-5"
+      baseChart
+      [chartType]="'doughnut'"
+      [data]="chartData"
+      [labels]="labels"
+      [options]="chartOptions"
+      [legend]="true"
+      [colors]="colors"
+      (chartClick)="onChartClick($event,poll.id)">
+      </canvas>
+    <div class="col-7 text-left">
+      {{poll.publishedDate|date:'d MMM y'}}<br/>
+      {{ poll.title }}
+<!--       
+      answer options
+      <div *ngFor="let opt of poll.answer.options">
+          option:{{opt.label}}
+        </div> -->
+    </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<router-outlet></router-outlet>
