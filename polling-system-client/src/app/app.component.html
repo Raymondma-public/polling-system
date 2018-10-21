@@ -2,70 +2,55 @@
 <div class="container" style="text-align:center">
 
   <div *ngIf="polls && polls[0]">
-  <div class="bg-chart-header">
-  <h1>
-    {{polls[0].title}}
-  </h1>
-  <hr>
-  <div class="row">
-  <div class="d-none d-sm-block col-xl-12 text-right">PUBLISHED : {{polls[0].publishedDate|date:'EEEE, d MMMM, y, h:mm a'}}</div>
+    <div class="bg-chart-header">
+      <h1>
+        {{polls[0].title}}
+      </h1>
+      <hr>
+      <div class="row">
+        <div class="d-none d-sm-block col-xl-12 text-right">PUBLISHED : {{polls[0].publishedDate|date:'EEEE, d MMMM, y, h:mm a'}}</div>
+      </div>
+
+    </div>
+    <div class="bg-chart-body">
+      <div class="row ">
+
+        <canvas class="col-12 col-xl-8 offset-xl-2" baseChart [chartType]="'doughnut'" [data]="chartData" [labels]="labels" [options]="chartOptions"
+          [legend]="true" [colors]="colors" (chartClick)="onChartClick($event)">
+        </canvas>
+      </div>
+
+      <div class="row">
+        <div class="col-12 col-xl-3 text-left">
+          Total number of votes recorded: {{total}}
+        </div>
+      </div>
+      <br/>
+    </div>
   </div>
 
-</div>
-<div class="bg-chart-body">
-  <div class="row ">
-    
-  <canvas class="col-12 col-xl-8 offset-xl-2"
-  baseChart
-  [chartType]="'doughnut'"
-  [data]="chartData"
-  [labels]="labels"
-  [options]="chartOptions"
-  [legend]="true"
-  [colors]="colors"
-  (chartClick)="onChartClick($event)">
-  </canvas>
-</div>
-
-<div class="row">
-    <div class="col-12 col-xl-3 text-left">
-    Total number of votes recorded: {{total}}
-  </div>
-</div>
-<br/>
-</div>
-</div>
-
   <div class="row">
-  <div class="col-12 col-xl-6" *ngFor="let poll of polls| slice:1;first as isFirst">
+    <div class="col-12 col-xl-6" *ngFor="let poll of polls| slice:1;first as isFirst">
 
 
 
 
-    
-     <div class="row">
-      <canvas class="col-6"
-      baseChart
-      [chartType]="'doughnut'"
-      [data]="chartData"
-      [labels]="labels"
-      [options]="chartOptions"
-      [legend]="true"
-      [colors]="colors"
-      (chartClick)="onChartClick($event)">
-      </canvas>
-    <div class="col-6 text-left">
-      {{poll.publishedDate|date:'d MMMM y'}}
-      {{ poll.title }}
 
-      <!-- answer options
+      <div class="row">
+        <canvas class="col-6" baseChart [chartType]="'doughnut'" [data]="chartData" [labels]="labels" [options]="chartOptions" [legend]="true"
+          [colors]="colors" (chartClick)="onChartClick($event)">
+        </canvas>
+        <div class="col-6 text-left">
+          {{poll.publishedDate|date:'d MMMM y'}} {{ poll.title }}
+
+          <!-- answer options
       <div *ngFor="let opt of poll.answer.options">
           option:{{opt.label}}
         </div> -->
+        </div>
+      </div>
     </div>
   </div>
-  </div>
-</div>
 
 </div>
 
