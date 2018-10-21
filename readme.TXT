@@ -24,3 +24,5 @@ Start api server(Node.js with express)
 	cd .\polling-system-server\
 4.Start the api server
 	npm start
+
+Go to http://localhost:4200/ to access the page
