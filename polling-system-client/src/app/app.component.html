@@ -1,6 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container" style="text-align:center">
 
+  <div *ngIf="polls && polls[0]">
   <div class="bg-chart-header">
   <h1>
     {{polls[0].title}}
@@ -22,24 +23,28 @@
   [options]="chartOptions"
   [legend]="true"
   [colors]="colors"
-  (chartClick)="onChartClick($event,0)">
+  (chartClick)="onChartClick($event)">
   </canvas>
 </div>
 
 <div class="row">
-    <div class="col-12 col-xl-3">
-    Total number of votes recorded:
+    <div class="col-12 col-xl-3 text-left">
+    Total number of votes recorded: {{total}}
   </div>
 </div>
 <br/>
-
-
+</div>
 </div>
 
   <div class="row">
-  <div class="col-12 col-xl-6" *ngFor="let poll of polls">
-      <div class="row">
-      <canvas class="col-5"
+  <div class="col-12 col-xl-6" *ngFor="let poll of polls| slice:1;first as isFirst">
+
+
+
+
+    
+     <div class="row">
+      <canvas class="col-6"
       baseChart
       [chartType]="'doughnut'"
       [data]="chartData"
@@ -47,18 +52,18 @@
       [options]="chartOptions"
       [legend]="true"
       [colors]="colors"
-      (chartClick)="onChartClick($event,poll.id)">
+      (chartClick)="onChartClick($event)">
       </canvas>
-    <div class="col-7 text-left">
-      {{poll.publishedDate|date:'d MMM y'}}<br/>
+    <div class="col-6 text-left">
+      {{poll.publishedDate|date:'d MMMM y'}}
       {{ poll.title }}
-<!--       
-      answer options
+
+      <!-- answer options
       <div *ngFor="let opt of poll.answer.options">
           option:{{opt.label}}
         </div> -->
     </div>
-    </div>
+  </div>
   </div>
 </div>
 

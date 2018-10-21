@@ -3,8 +3,22 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiServer:{
+    protocol:"http",
+    host:"localhost",
+    port:"3000",
+    apis:{
+        "polls":"polls"
+        
+  }
+ },
+ getAPI(apiName){
+    return this.apiServer.protocol+"://"+this.apiServer.host+":"+this.apiServer.port+"/"+this.apiServer.apis[apiName];
+ }
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

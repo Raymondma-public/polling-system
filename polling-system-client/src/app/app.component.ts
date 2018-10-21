@@ -10,10 +10,11 @@ import { Chart } from "chart.js";
 })
 export class AppComponent implements OnInit {
   title = '';
+  total=80;
   polls:Poll[];
 
   chartOptions = {
-    responsive: true    // THIS WILL MAKE THE CHART RESPONSIVE (VISIBLE IN ANY DEVICE).
+    responsive: true    
   }
 
   labels =  ['YES', 'NO'];
@@ -37,8 +38,12 @@ export class AppComponent implements OnInit {
   getPolls():void{
     this.pollService.getAll().subscribe(res=>{
       this.polls=res.polls;
+      this.polls.forEach(poll=>{
+        poll.publishedDate=new Date(poll.publishedDate*1000);
+      })
       console.log(this.polls);
       if(this.polls[0]){
+        console.log(this.polls[0].publishedDate.getFullYear());
         this.title=this.polls[0].title;
       }else{
        
@@ -55,7 +60,13 @@ export class AppComponent implements OnInit {
       console.log("Index", e.active[0]._index);
       console.log("Data" , e.active[0]._chart.config.data.datasets[0].data[e.active[0]._index]);
       console.log("Label" , e.active[0]._chart.config.data.labels[e.active[0]._index]);
+      this.pollService.postPollResponse(id,e.active[0]._chart.config.data.labels[e.active[0]._index]).subscribe(res=>{
+        if(res.message=='success'){
+          this.getPolls();
+        }
+      });
       }
+
   }
 
 }
